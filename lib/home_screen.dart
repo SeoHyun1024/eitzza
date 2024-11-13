@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -41,7 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _modeChange() {
     setState(() {
-      isDraft != isDraft;
+      isDraft = !isDraft;
+      print(isDraft);
     });
   }
 
@@ -52,8 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor:
+            isDraft ? const Color(0xFFF0F1F8) : const Color(0xFF151618),
         toolbarHeight: 40 * height,
-        title: SvgPicture.asset("assets/images/Eitzza_logo.svg"),
+        title: isDraft
+            ? SvgPicture.asset("assets/images/Eitzza_logo.svg")
+            : SvgPicture.asset("assets/images/Eitzza_logo_dark.svg"),
         //backgroundColor: const Color(0xFFF0F1F8),
       ),
       body: Stack(
@@ -68,37 +75,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: 36 * height,
-                      width: 69 * width,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE7E5FF),
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      child: const Text(
-                        "Draft",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF212121),
+                    GestureDetector(
+                      onTap: () {
+                        _modeChange();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 36 * height,
+                        width: 69 * width,
+                        decoration: BoxDecoration(
+                          color: isDraft
+                              ? const Color(0xFFE7E5FF)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: Text(
+                          "Draft",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: isDraft
+                                ? const Color(0xFF212121)
+                                : const Color(0xFFB9B8C9),
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 36 * height,
-                      width: 69 * width,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      child: const Text(
-                        "Deveolp",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFFB9B8C9),
+                    GestureDetector(
+                      onTap: () {
+                        _modeChange();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 36 * height,
+                        width: 92 * width,
+                        decoration: BoxDecoration(
+                          color: isDraft
+                              ? Colors.transparent
+                              : const Color(0xFFE7E5FF),
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: Text(
+                          "Deveolp",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: isDraft
+                                ? const Color(0xFFB9B8C9)
+                                : const Color(0xFF212121),
+                          ),
                         ),
                       ),
                     ),
